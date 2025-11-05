@@ -18,12 +18,13 @@ public static class Arrays
 
         // step 2: use for loop to fill empty array with multiples of number
         for (int i = 0; i < length; i++)
-            {
-                multiples[i] = number * (i + 1);
-            }
+        {
+            // uses iterator for array index and multiplier, so multiplier needs 1 added
+            multiples[i] = number * (i + 1);
+        }
         // step 3: return the array
             return multiples;
-        }
+    }
 
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 

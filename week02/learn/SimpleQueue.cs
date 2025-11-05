@@ -1,4 +1,6 @@
-﻿public class SimpleQueue {
+﻿using System.Diagnostics;
+
+public class SimpleQueue {
     public static void Run() {
         // Test Cases
 
@@ -9,8 +11,9 @@
         var queue = new SimpleQueue();
         queue.Enqueue(100);
         var value = queue.Dequeue();
-        Console.WriteLine(value);
-        // Defect(s) Found:
+        Console.WriteLine($"{value} - should show 100");
+        Trace.Assert(value == 100, "value enqueued and dequeued should have been 100");
+        // Defect(s) Found: Did not write the value. Error occurred of index out of range
 
         Console.WriteLine("------------");
 
@@ -23,12 +26,15 @@
         queue.Enqueue(300);
         queue.Enqueue(400);
         value = queue.Dequeue();
-        Console.WriteLine(value);
+        Console.WriteLine($"{value} - should show 200");
+        Trace.Assert(value == 200, "value enqueued and dequeued should have been 200");
         value = queue.Dequeue();
-        Console.WriteLine(value);
+        Console.WriteLine($"{value} - should show 300");
+        Trace.Assert(value == 300, "value enqueued and dequeued should have been 300");
         value = queue.Dequeue();
-        Console.WriteLine(value);
-        // Defect(s) Found: 
+        Console.WriteLine($"{value} - should show 400");
+        Trace.Assert(value == 400, "value enqueued and dequeued should have been 400");
+        // Defect(s) Found: Not displaying in order.
 
         Console.WriteLine("------------");
 
@@ -44,7 +50,7 @@
         catch (IndexOutOfRangeException) {
             Console.WriteLine("I got the exception as expected.");
         }
-        // Defect(s) Found: 
+        // Defect(s) Found: None
     }
 
     private readonly List<int> _queue = new();
@@ -54,7 +60,7 @@
     /// </summary>
     /// <param name="value">Integer value to add to the queue</param>
     private void Enqueue(int value) {
-        _queue.Insert(0, value);
+        _queue.Insert(0,value);
     }
 
     /// <summary>
@@ -66,8 +72,8 @@
         if (_queue.Count <= 0)
             throw new IndexOutOfRangeException();
 
-        var value = _queue[1];
-        _queue.RemoveAt(1);
+        var value = _queue[0];
+        _queue.RemoveAt(0);
         return value;
     }
 }
