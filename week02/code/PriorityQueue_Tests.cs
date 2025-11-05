@@ -23,6 +23,7 @@ public class PriorityQueueTests
 
         for (int i = 0; i < 4; i++)
         {
+            // check that each value returned by Dequeue is done in the expected order
             Assert.AreEqual(expectedResult[i], priorityQueue.Dequeue());
         }
         
@@ -51,6 +52,7 @@ public class PriorityQueueTests
 
         for (int i = 0; i < 5; i++)
         {
+            // check that each value returned by Dequeue is done in the expected order
             Assert.AreEqual(expectedResult[i], priorityQueue.Dequeue());
         }
         
