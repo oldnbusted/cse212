@@ -11,20 +11,39 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Create queue of 3 customers, adds 3 customers, removes 1 customer
+        //   , adds 1 more customer, serves 3 customers 
+        // Expected Result: Customers displayed in order of entry, error message given
         Console.WriteLine("Test 1");
 
-        // Defect(s) Found: 
+        int indexer = 2;
+        CustomerService customers = new CustomerService(indexer);
+        for (int i = 0; i < indexer; i++)
+        {
+            customers.AddNewCustomer();
+        }
+        customers.ServeCustomer();
+        customers.AddNewCustomer();
+        for (int i = 0; i < indexer + 1; i++)
+        {
+            customers.ServeCustomer(); 
+        }
+
+        // Defect(s) Found: None
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Create queue with negative size, input 11 customers
+        // Expected Result: exception thrown on input of 11th customer
         Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
+        indexer = 11;
+        CustomerService customers2 = new CustomerService(-2);
+        for (int i = 0; i < indexer; i++)
+        {
+            customers2.AddNewCustomer();
+        }
+        // Defect(s) Found: could add 11 customers
 
         Console.WriteLine("=================");
 
@@ -67,7 +86,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
@@ -88,9 +107,16 @@ public class CustomerService {
     /// Dequeue the next customer and display the information.
     /// </summary>
     private void ServeCustomer() {
-        _queue.RemoveAt(0);
-        var customer = _queue[0];
-        Console.WriteLine(customer);
+        if (_queue.Count > 0)
+        {
+            var customer = _queue[0];
+            Console.WriteLine(customer);
+            _queue.RemoveAt(0);
+        }
+        else
+        {
+            Console.WriteLine("Nobody to serve!");
+        }
     }
 
     /// <summary>
